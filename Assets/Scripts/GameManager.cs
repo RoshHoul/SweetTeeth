@@ -42,19 +42,19 @@ public class GameManager : MonoBehaviour {
 
     void SetUpScene()
     {
-        for (int i = -10; i < -5; i++)
+        for (int i = -7; i < -2; i++)
         {
             GameObject thisObject = Instantiate(tooth, new Vector3(i * 0.8f, -2, 0), Quaternion.identity) as GameObject;
             platform.Add(thisObject);
         }
 
-        for (int i = 5; i < 10; i++)
+        for (int i = 3; i < 8; i++)
         {
             GameObject thisObject = Instantiate(tooth, new Vector3(i * 0.8f, 2, 0), Quaternion.identity) as GameObject;
             platform.Add(thisObject);
         }
 
-        for (int i = -3; i < 1; i++)
+        for (int i = -1; i < 2; i++)
         {
             GameObject thisObject = Instantiate(tooth, new Vector3(i * 0.8f, 0, 0), Quaternion.identity) as GameObject;
             platform.Add(thisObject);
