@@ -14,48 +14,80 @@ public class Movement : MonoBehaviour {
 	public float groundCheckRadius;
 	public LayerMask WhatIsGround;
 	private bool grounded;
+	bool right;
+	bool left;
+	bool jump;
 
 	void Start () 
 	{
 
 	}
-
-	void FixedUpdate()
+		
+	
+	// Update is called once per frame
+	void FixedUpdate () 
 	{
 		animator = GetComponent<Animator> ();
 		spr = GetComponent<SpriteRenderer> ();
 		grounded = Physics2D.OverlapCircle (groundCheck.position, groundCheckRadius, WhatIsGround);
-	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
 		Rigidbody2D rb = GetComponent<Rigidbody2D>();
-		if (Input.GetKeyDown(KeyCode.Space) && grounded) 
+		if (jump == true && grounded) 
 		{
 			rb.velocity = new Vector2 (rb.velocity.x, jumpHeight);
 		}
-		if (Input.GetKey(KeyCode.RightArrow)) 
+		if (right == true) 
 		{
-			rb.velocity = new Vector2 (speed,rb.velocity.y);
-			animator.SetBool ("WalkingRight", true);
+			rb.velocity = new Vector2 (speed , rb.velocity.y);
+			animator.SetFloat ("Speed", GetComponent<Rigidbody2D>().velocity.x);
 			if (spr.flipX == true) 
 			{
 				spr.flipX = false;
 			}
 		}
-		if (Input.GetKey(KeyCode.LeftArrow)) 
+		if (right == false && left == false) 
 		{
-			rb.velocity = new Vector2 (-speed,rb.velocity.y);
+			rb.velocity = new Vector2 (0 , rb.velocity.y);
+		}
+		if (jump == false && grounded) 
+		{
+			rb.velocity = new Vector2 (rb.velocity.x, 0);
+		}
+		if (left == true) 
+		{
+			rb.velocity = new Vector2 (-speed , rb.velocity.y);
 			spr.flipX = true;
-			animator.SetBool ("WalkingRight", true);
+			animator.SetFloat ("Speed", -GetComponent<Rigidbody2D>().velocity.x);
 		}
 		if (Input.anyKey == false) {
-			animator.SetBool ("WalkingRight", false);
+			animator.SetFloat ("Speed", GetComponent<Rigidbody2D>().velocity.x);
 		} 
 		else 
 		{
 			
 		}
+	}
+	public void moveRight()
+	{
+		right = true;
+	}
+	public void stopRight()
+	{
+		right = false;
+	}
+	public void moveLeft()
+	{
+		left = true;
+	}
+	public void stopLeft()
+	{
+		left = false;
+	}
+	public void JumpUp()
+	{
+		jump = true;
+	}
+	public void JumpStill()
+	{
+		jump = false;
 	}
 }
