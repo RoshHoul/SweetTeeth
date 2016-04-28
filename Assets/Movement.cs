@@ -17,6 +17,7 @@ public class Movement : MonoBehaviour {
 	bool right;
 	bool left;
 	bool jump;
+	public bool Candy;
 
 	void Start () 
 	{
@@ -39,6 +40,11 @@ public class Movement : MonoBehaviour {
 		{
 			rb.velocity = new Vector2 (speed , rb.velocity.y);
 			animator.SetFloat ("Speed", GetComponent<Rigidbody2D>().velocity.x);
+			Debug.Log (Candy);
+			if (Candy) 
+			{
+				animator.SetFloat ("Candy", GetComponent<Rigidbody2D>().velocity.x);
+			}
 			if (spr.flipX == true) 
 			{
 				spr.flipX = false;
@@ -57,6 +63,10 @@ public class Movement : MonoBehaviour {
 			rb.velocity = new Vector2 (-speed , rb.velocity.y);
 			spr.flipX = true;
 			animator.SetFloat ("Speed", -GetComponent<Rigidbody2D>().velocity.x);
+			if (Candy) 
+			{
+				animator.SetFloat ("Candy", -GetComponent<Rigidbody2D>().velocity.x);
+			}
 		}
 		if (Input.anyKey == false) {
 			animator.SetFloat ("Speed", GetComponent<Rigidbody2D>().velocity.x);
