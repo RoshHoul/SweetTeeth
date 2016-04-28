@@ -3,11 +3,12 @@ using System.Collections;
 
 public class CandyDestroy : MonoBehaviour {
 
-	void OnCollisionEnter (Collision col)
+	void OnCollisionEnter2D (Collision2D col)
 	{
-		if(col.gameObject.tag == "Player")
+		if(col.gameObject.tag == "Candy")
 		{
-			Destroy(gameObject);
+            Debug.Log("Colliding with: " + col.gameObject.name);
+            col.gameObject.SetActive(false);
 		}
 	}
 }

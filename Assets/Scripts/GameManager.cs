@@ -60,12 +60,12 @@ public class GameManager : MonoBehaviour {
             platform.Add(thisObject);
         }
 
-        for (int i = 7; i < 10; i++)
+    /*    for (int i = 7; i < 10; i++)
         {
             GameObject thisObject = Instantiate(tooth, new Vector3(i * 0.8f, -3.78f, 0), Quaternion.identity) as GameObject;
             platform.Add(thisObject);
         }
-
+        */
 
     }
 
