@@ -4,12 +4,13 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour {
 
- //   public GameObject platform
+    //   public GameObject platform
 
-    public GameObject tooth;
+    public Tooth tooth;
+//    public GameObject tooth;
     public GameObject candy;
     public float timer = 10f;
-    List <GameObject> platform = new List<GameObject>();
+    List <Tooth> platform = new List<Tooth>();
 
 
     // Use this for initialization
@@ -22,7 +23,7 @@ public class GameManager : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        for (int i = 0; i < platform.Count; i++)
+  /*      for (int i = 0; i < platform.Count; i++)
         {
             if (platform[i].transform.childCount > 0)
             {
@@ -37,29 +38,32 @@ public class GameManager : MonoBehaviour {
 
             }
 
-        }
+        } */
     }
 
     void SetUpScene()
     {
-        for (int i = -7; i < -2; i++)
+        for (int i = -7; i < -2; i++)   // RIGHT ONE: int i = -7; i < -2; i++
         {
-            GameObject thisObject = Instantiate(tooth, new Vector3(i * 0.8f, -2, 0), Quaternion.identity) as GameObject;
+            Tooth thisObject = new Tooth(i, 50);
+            Instantiate(thisObject, new Vector3(i * 0.8f, -2, 0), Quaternion.identity);
             platform.Add(thisObject);
+            //Tooth currTooth = new Tooth(i, new Vector3(i * 0.8f, -2, 0));
+
         }
 
         for (int i = 3; i < 8; i++)
         {
-            GameObject thisObject = Instantiate(tooth, new Vector3(i * 0.8f, 2, 0), Quaternion.identity) as GameObject;
+            Tooth thisObject = Instantiate(tooth, new Vector3(i * 0.8f, 2, 0), Quaternion.identity) as Tooth;
             platform.Add(thisObject);
         }
 
         for (int i = -1; i < 2; i++)
         {
-            GameObject thisObject = Instantiate(tooth, new Vector3(i * 0.8f, 0, 0), Quaternion.identity) as GameObject;
+            Tooth thisObject = Instantiate(tooth, new Vector3(i * 0.8f, 0, 0), Quaternion.identity) as Tooth;
             platform.Add(thisObject);
         }
-
+        
     /*    for (int i = 7; i < 10; i++)
         {
             GameObject thisObject = Instantiate(tooth, new Vector3(i * 0.8f, -3.78f, 0), Quaternion.identity) as GameObject;
