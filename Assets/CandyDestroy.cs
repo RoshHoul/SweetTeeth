@@ -7,7 +7,10 @@ public class CandyDestroy : MonoBehaviour {
 		if(col.gameObject.tag == "Candy")
 		{
             Debug.Log("Colliding with: " + col.gameObject.name);
-            col.gameObject.SetActive(false);
+            //col.gameObject.SetActive(false);
+            GameObject testObj = col.gameObject;
+            testObj.transform.parent = null;
+            Destroy(testObj);
 		}
 	}
 }

@@ -4,11 +4,12 @@ using UnityEngine.UI;
 
 public class Tooth : MonoBehaviour {
 
+    private Vector3 position;
     public int index;
     public float timer;
     Vector3 pos;
     int state = 1;
-
+    float x, y, z;
 
 
     public Tooth( int _index, float _timer )
@@ -26,7 +27,7 @@ public class Tooth : MonoBehaviour {
 	void Update () {
 //        State();
         
-        if (FindChild())
+/*        if (FindChild())
         {
             if (state == 1)
             {
@@ -41,7 +42,7 @@ public class Tooth : MonoBehaviour {
 
             }
         }
-    }
+ */   }
 
     void State()
     {
@@ -75,18 +76,23 @@ public class Tooth : MonoBehaviour {
         }
     }
 
-  /*  void Timer()
+    public void CallTimer()
     {
-        if (FindChild())
+   //     State();
+        //TODO: Start Timer
+        timer += Time.deltaTime;
+        if(timer >= 10)
         {
-            State();
-            //TODO: Start Timer
-            timer -= Time.deltaTime;
-            if(timer <= 0)
-            {
-                this.GetComponent<Rigidbody2D>().isKinematic = false;
-            }
+            this.GetComponent<Rigidbody2D>().isKinematic = false;
         }
-    }*/
+    }
+    public float Position
+    {
+        
+        set
+        {
+            position = new Vector3(x, y, z);
+        }
+    }
 
 }

@@ -5,13 +5,12 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour {
 
     //   public GameObject platform
-
     public Tooth tooth;
-//    public GameObject tooth;
+//    public GameObject toothTest;
     public GameObject candy;
     public float timer = 10f;
     List <Tooth> platform = new List<Tooth>();
-
+    
 
     // Use this for initialization
     void Start()
@@ -23,33 +22,32 @@ public class GameManager : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-  /*      for (int i = 0; i < platform.Count; i++)
+        for (int i = 0; i < platform.Count; i++)
         {
             if (platform[i].transform.childCount > 0)
             {
-                timer -= Time.deltaTime;
-                //                Debug.Log("vreme: " + timer);
-                if (timer < 0)
-                {
-                    platform[i].GetComponent<Rigidbody2D>().isKinematic = false;
-                    timer = 5f;
-                }
-
-
+                /*  timer -= Time.deltaTime;
+                  //                Debug.Log("vreme: " + timer);
+                  if (timer < 0)
+                  {
+                      platform[i].GetComponent<Rigidbody2D>().isKinematic = false;
+                      timer = 5f;
+                  }
+                  */
+                
+                platform[i].GetComponent<Tooth>().CallTimer();
             }
 
-        } */
+        } 
     }
 
     void SetUpScene()
     {
         for (int i = -7; i < -2; i++)   // RIGHT ONE: int i = -7; i < -2; i++
         {
-            Tooth thisObject = new Tooth(i, 50);
-            Instantiate(thisObject, new Vector3(i * 0.8f, -2, 0), Quaternion.identity);
+            Tooth thisObject = Instantiate(tooth, new Vector3(i * 0.8f, -2, 0), Quaternion.identity) as Tooth;
             platform.Add(thisObject);
-            //Tooth currTooth = new Tooth(i, new Vector3(i * 0.8f, -2, 0));
-
+   
         }
 
         for (int i = 3; i < 8; i++)
@@ -93,7 +91,7 @@ public class GameManager : MonoBehaviour {
         GameObject currCandy = Instantiate(candy, candyPos, Quaternion.identity) as GameObject;
         currCandy.transform.parent = platform[rand].transform;
         prev = rand;
-    }
+    } 
 
 
 }
