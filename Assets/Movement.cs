@@ -18,6 +18,12 @@ public class Movement : MonoBehaviour {
 	bool left;
 	bool jump;
 	public bool Candy;
+	public bool candyPicking;
+	public bool candyPickingLeft;
+	public bool candyPickingRight;
+	public bool candyPickingUp;
+	bool candybool;
+	bool candybool2;
 
 	void Start () 
 	{
@@ -32,11 +38,24 @@ public class Movement : MonoBehaviour {
 		spr = GetComponent<SpriteRenderer> ();
 		grounded = Physics2D.OverlapCircle (groundCheck.position, groundCheckRadius, WhatIsGround);
 		Rigidbody2D rb = GetComponent<Rigidbody2D>();
-		if (jump == true && grounded) 
+		if (candyPicking) 
+		{
+			{
+				candyPicking = false;
+				animator.SetTrigger ("Candy");
+			}
+		}
+		if ((jump || Input.GetKeyDown(KeyCode.Space))  == true && grounded) 
 		{
 			rb.velocity = new Vector2 (rb.velocity.x, jumpHeight);
+			if (candyPickingUp) 
+			{
+				candyPicking = false;
+				candyPickingUp = false;
+				animator.SetTrigger ("Candy");
+			}
 		}
-		if (right == true) 
+		if ((right || Input.GetKey(KeyCode.RightArrow)) == true) 
 		{
 			rb.velocity = new Vector2 (speed , rb.velocity.y);
 			animator.SetFloat ("Speed", GetComponent<Rigidbody2D>().velocity.x);
@@ -45,20 +64,28 @@ public class Movement : MonoBehaviour {
 			{
 				animator.SetFloat ("Candy", GetComponent<Rigidbody2D>().velocity.x);
 			}
+			if (candyPickingRight) 
+			{
+				candyPicking = false;
+				candyPickingRight = false;
+				animator.SetTrigger ("Candy");
+			}
 			if (spr.flipX == true) 
 			{
 				spr.flipX = false;
 			}
 		}
-		if (right == false && left == false) 
-		{
-			rb.velocity = new Vector2 (0 , rb.velocity.y);
-		}
-		if (jump == false && grounded) 
+		if ((jump || Input.GetKey(KeyCode.Space)) == false && grounded) 
 		{
 			rb.velocity = new Vector2 (rb.velocity.x, 0);
+			if (candyPickingUp) 
+			{
+				candyPicking = false;
+				candyPickingUp = false;
+				animator.SetTrigger ("Candy");
+			}
 		}
-		if (left == true) 
+			if ((left || Input.GetKey(KeyCode.LeftArrow)) == true) 
 		{
 			rb.velocity = new Vector2 (-speed , rb.velocity.y);
 			spr.flipX = true;
@@ -67,8 +94,14 @@ public class Movement : MonoBehaviour {
 			{
 				animator.SetFloat ("Candy", -GetComponent<Rigidbody2D>().velocity.x);
 			}
+			if (candyPickingLeft) 
+			{
+				candyPickingLeft = false;
+				candyPicking = false;
+				animator.SetTrigger ("Candy");
+			}
 		}
-		if (Input.anyKey == false) {
+		if ((Input.anyKey) == false) {
 			animator.SetFloat ("Speed", GetComponent<Rigidbody2D>().velocity.x);
 		} 
 		else 
@@ -76,6 +109,33 @@ public class Movement : MonoBehaviour {
 			
 		}
 	}
+		
+	void OnCollisionEnter2D (Collision2D col)
+	{
+		animator = GetComponent<Animator> ();
+		if(col.gameObject.tag == "Candy")
+		{
+			Debug.Log("Colliding with: " + col.gameObject.name);
+			//col.gameObject.SetActive(false);
+			GameObject testObj = col.gameObject;
+			testObj.transform.parent = null;
+			candyPicking = true;
+			if ((right || Input.GetKey (KeyCode.RightArrow)) == true) 
+			{
+				candyPickingRight = true;
+			}
+			if ((left || Input.GetKey (KeyCode.LeftArrow)) == true) 
+			{
+				candyPickingLeft = true;
+			}
+			if ((jump || Input.GetKeyDown (KeyCode.Space)) == true) 
+			{
+				candyPickingUp = true;
+			}
+			Destroy(testObj);
+		}
+	}
+
 	public void moveRight()
 	{
 		right = true;
