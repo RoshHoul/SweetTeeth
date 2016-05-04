@@ -10,7 +10,8 @@ public class GameManager : MonoBehaviour {
     public GameObject candy;
     public float timer = 10f;
     List <Tooth> platform = new List<Tooth>();
-    
+    int prev = 0;
+
 
     // Use this for initialization
     void Start()
@@ -74,7 +75,7 @@ public class GameManager : MonoBehaviour {
     void SpawnCandy()
     {
         int rand = Random.Range(0, platform.Count);
-        int prev = 0;
+        
         if (prev == rand)
         {
             if (rand != platform.Count)

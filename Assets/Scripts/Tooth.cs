@@ -81,7 +81,7 @@ public class Tooth : MonoBehaviour {
    //     State();
         //TODO: Start Timer
         timer += Time.deltaTime;
-        if(timer >= 10)
+        if(timer >= 4)
         {
             this.GetComponent<Rigidbody2D>().isKinematic = false;
         }
