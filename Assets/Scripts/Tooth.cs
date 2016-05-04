@@ -7,6 +7,7 @@ public class Tooth : MonoBehaviour {
     private Vector3 position;
     public int index;
     public float timer;
+	public Animator animator;
     Vector3 pos;
     int state = 1;
     float x, y, z;
@@ -19,8 +20,9 @@ public class Tooth : MonoBehaviour {
     }
 
 	// Use this for initialization
-	void Start () {
-	
+	void Start () 
+	{
+		animator = this.GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -81,9 +83,13 @@ public class Tooth : MonoBehaviour {
    //     State();
         //TODO: Start Timer
         timer += Time.deltaTime;
-        if(timer >= 4)
+        if(timer >= 7.5)
         {
             this.GetComponent<Rigidbody2D>().isKinematic = false;
+			if (this.GetComponent<Rigidbody2D> ().isKinematic == false) 
+			{
+				this.animator.speed = 0;
+			}
         }
     }
     public float Position

@@ -6,12 +6,13 @@ public class GameManager : MonoBehaviour {
 
     //   public GameObject platform
     public Tooth tooth;
-//    public GameObject toothTest;
+	//    public GameObject toothTest;
+	Animator animator;
     public GameObject candy;
     public float timer = 10f;
     List <Tooth> platform = new List<Tooth>();
     int prev = 0;
-
+	bool check;
 
     // Use this for initialization
     void Start()
@@ -25,19 +26,21 @@ public class GameManager : MonoBehaviour {
     {
         for (int i = 0; i < platform.Count; i++)
         {
-            if (platform[i].transform.childCount > 0)
-            {
-                /*  timer -= Time.deltaTime;
-                  //                Debug.Log("vreme: " + timer);
-                  if (timer < 0)
-                  {
-                      platform[i].GetComponent<Rigidbody2D>().isKinematic = false;
-                      timer = 5f;
-                  }
-                  */
-                
-                platform[i].GetComponent<Tooth>().CallTimer();
-            }
+			if (platform [i].transform.childCount > 0) { 
+				platform[i].animator.speed = 1;
+				animator = platform [i].GetComponent<Animator> ();
+				animator.SetBool ("animation", true);
+				platform [i].GetComponent<Tooth> ().CallTimer ();
+				check = true;
+			} 
+			if ((platform [i].transform.childCount <= 0)) 
+			{
+				check = false;
+			}
+			if(check == false)
+				{
+				platform[i].animator.speed = 0;
+				}
 
         } 
     }
