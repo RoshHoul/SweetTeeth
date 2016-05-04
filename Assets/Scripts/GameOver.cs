@@ -9,6 +9,9 @@ public class GameOver : MonoBehaviour {
         {
 
             Application.LoadLevel("Game Over");
+        } else if ((other.transform.tag == "Candy") || (other.transform.tag == "Tooth"))
+        {
+            other.gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
         }
     }
 

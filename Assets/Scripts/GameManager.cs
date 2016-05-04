@@ -90,6 +90,11 @@ public class GameManager : MonoBehaviour {
                 rand--;
             }
         }
+
+        if (platform[rand].GetComponent<Rigidbody2D>().isKinematic == false)
+        {
+            rand = Random.Range(0, platform.Count);
+        }
         Vector3 candyPos = platform[rand].transform.position;
         candyPos.y = platform[rand].transform.position.y + 0.8f;
         GameObject currCandy = Instantiate(candy, candyPos, Quaternion.identity) as GameObject;
